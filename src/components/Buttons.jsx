@@ -14,7 +14,7 @@ function onclickHandler(e, index){
 
 console.log('click, e', e)
 console.log('click, index', index)
-CanvasContextProvider.setactiveButton(index)
+setactiveButton(index)
 }
 
     return(

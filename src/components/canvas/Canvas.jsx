@@ -67,7 +67,7 @@ return (
 
     <CanvasContextProvider>
         <div className="App">
-          { CanvasContextProvider.activeButton ? <p>stado</p> : null}
+          { activeButton ? <p>stado</p> : null}
             <canvas
                 ref={canvasRef}
                 width={window.innerWidth}
