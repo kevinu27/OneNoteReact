@@ -1,14 +1,18 @@
 import './Canvas.css'
 // import { useState } from 'react'
 // import { useEffect } from 'react';
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState, useCallback, useContext } from 'react';
 import CanvasContextProvider from '../../context/canvas-context.jsx'
+import {CanvasContext} from '../../context/canvas-context.jsx'
 
 export default function Canvas() {
 
     const canvasRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
     const linesRef = useRef([]); 
+
+    const {activeButton} = useContext(CanvasContext)
+    console.log('activeButton', activeButton)
     // se usa ref como estado en este caso, porque si se usase un estado el componenete se reejecutaria cada vez se mueve el rato dibujando y eso seria un consumo potente 
     // por demasiadas reejecuciones. Con el useRef se guarda ahi ya que el ref sobrevive los re-renders y no se pierde, y el useref no se reejecuta
   
@@ -65,7 +69,7 @@ export default function Canvas() {
 
 return (
 
-    <CanvasContextProvider>
+    
         <div className="App">
           { activeButton ? <p>stado</p> : null}
             <canvas
@@ -79,6 +83,6 @@ return (
                 style={{ border: '1px solid black' }}
             />
         </div>
-        </CanvasContextProvider>
+        
 )
 }

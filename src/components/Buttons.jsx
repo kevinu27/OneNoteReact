@@ -1,5 +1,7 @@
 
+import { useContext } from 'react'
 import CanvasContextProvider from '../context/canvas-context.jsx'
+import {CanvasContext} from '../context/canvas-context.jsx'
 
 const ButtonsContent = [
     "drawing",
@@ -8,7 +10,7 @@ const ButtonsContent = [
 ]
 
 export default function Buttons() {
-
+const {setactiveButton} = useContext(CanvasContext)
 
 function onclickHandler(e, index){
 
@@ -18,8 +20,8 @@ setactiveButton(index)
 }
 
     return(
-        <CanvasContextProvider>
+        <>
             {ButtonsContent.map( (button, index) => <button onClick={(e)=> onclickHandler(e, index)} key={index}> {button}</button> )}
-        </CanvasContextProvider>
+        </>
     )
 }
