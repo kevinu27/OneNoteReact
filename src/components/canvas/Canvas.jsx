@@ -71,7 +71,7 @@ return (
 
     
         <div className="App">
-          { activeButton ? <p>stado</p> : null}
+          { activeButton ? <p>{activeButton}</p> : null}
             <canvas
                 ref={canvasRef}
                 width={window.innerWidth}

@@ -12,16 +12,16 @@ const ButtonsContent = [
 export default function Buttons() {
 const {setactiveButton} = useContext(CanvasContext)
 
-function onclickHandler(e, index){
+function onclickHandler(e, index, button){
 
 console.log('click, e', e)
 console.log('click, index', index)
-setactiveButton(index)
+setactiveButton(button)
 }
 
     return(
         <>
-            {ButtonsContent.map( (button, index) => <button onClick={(e)=> onclickHandler(e, index)} key={index}> {button}</button> )}
+            {ButtonsContent.map( (button, index) => <button onClick={(e)=> onclickHandler(e, index, button)} key={index}> {button}</button> )}
         </>
     )
 }
