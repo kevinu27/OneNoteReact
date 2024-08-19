@@ -2,7 +2,7 @@ import './Canvas.css'
 // import { useState } from 'react'
 // import { useEffect } from 'react';
 import React, { useRef, useEffect, useState, useCallback } from 'react';
-
+import CanvasContextProvider from '../../context/canvas-context.jsx'
 
 export default function Canvas() {
 
@@ -65,8 +65,9 @@ export default function Canvas() {
 
 return (
 
-    <>
+    <CanvasContextProvider>
         <div className="App">
+          { CanvasContextProvider.activeButton ? <p>stado</p> : null}
             <canvas
                 ref={canvasRef}
                 width={window.innerWidth}
@@ -78,6 +79,6 @@ return (
                 style={{ border: '1px solid black' }}
             />
         </div>
-    </>
+        </CanvasContextProvider>
 )
 }

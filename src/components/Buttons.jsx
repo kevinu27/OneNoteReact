@@ -1,14 +1,25 @@
 
+import CanvasContextProvider from '../context/canvas-context.jsx'
+
+const ButtonsContent = [
+    "drawing",
+    "stroke",
+    
+]
 
 export default function Buttons() {
 
 
+function onclickHandler(e, index){
+
+console.log('click, e', e)
+console.log('click, index', index)
+CanvasContextProvider.setactiveButton(index)
+}
 
     return(
-        <>
-        <p>
-            Buttons Componente
-            </p>
-        </>
+        <CanvasContextProvider>
+            {ButtonsContent.map( (button, index) => <button onClick={(e)=> onclickHandler(e, index)} key={index}> {button}</button> )}
+        </CanvasContextProvider>
     )
 }
