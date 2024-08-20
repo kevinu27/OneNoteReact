@@ -4,8 +4,8 @@ import CanvasContextProvider from '../context/canvas-context.jsx'
 import {CanvasContext} from '../context/canvas-context.jsx'
 
 const ButtonsContent = [
-    "drawing",
-    "stroke",
+    {buttonId: "drawing", buttonType:'button'},
+    {buttonId: "stroke", buttonType:'select'}
     
 ]
 
@@ -21,7 +21,7 @@ function onclickHandler(e, index, button){
 
     return(
         <>
-            {ButtonsContent.map( (button, index) => <button onClick={(e)=> onclickHandler(e, index, button)} key={index}> {button}</button> )}
+            {ButtonsContent.map( (button, index) => <button onClick={(e)=> onclickHandler(e, index, button)} key={index}> {button.buttonId}</button> )}
         </>
     )
 }

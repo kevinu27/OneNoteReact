@@ -9,7 +9,7 @@ function canvasReducer(state, action) {
 
     return {
         ...state,
-        activeButton:action.payload
+        activeButton:action.payload.buttonId
     }
     
 }
@@ -27,7 +27,6 @@ export default function CanvasContextProvider({children}) {
     const [canvasState, canvasDispatch] = useReducer(canvasReducer,
         {
             activeButton: "" ,
-            setactiveButton: ()=> {}
         }
     )
 
