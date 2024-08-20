@@ -10,14 +10,14 @@ const ButtonsContent = [
 ]
 
 export default function Buttons() {
-const {setactiveButton} = useContext(CanvasContext)
+const {handleActiveButton} = useContext(CanvasContext)
 
 function onclickHandler(e, index, button){
 
-console.log('click, e', e)
-console.log('click, index', index)
-setactiveButton(button)
-}
+    console.log('click, e', e)
+    console.log('click, index', index)
+    handleActiveButton(button)
+    }
 
     return(
         <>

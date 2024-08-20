@@ -1,14 +1,42 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useReducer } from "react";
 
 export const CanvasContext = createContext()
 
+function canvasReducer(state, action) {
+    console.log('canvas reducer')
+    console.log('state', state)
+    console.log('action', action)
+
+    return {
+        ...state,
+        activeButton:action.payload
+    }
+    
+}
+
+
 export default function CanvasContextProvider({children}) {
+
+    function handleActiveButton(button) {
+        canvasDispatch({
+            type: 'ACTIVE_BUTTON',
+            payload: button
+        })
+    }
+   
+    const [canvasState, canvasDispatch] = useReducer(canvasReducer,
+        {
+            activeButton: "" ,
+            setactiveButton: ()=> {}
+        }
+    )
+
 
     const [activeButton, setactiveButton] = useState("")
 
     const canvasContextValues = {
-        activeButton,
-        setactiveButton
+        activeButton: canvasState.activeButton,
+        handleActiveButton: handleActiveButton
     }
 
     return (<CanvasContext.Provider value={canvasContextValues} >
