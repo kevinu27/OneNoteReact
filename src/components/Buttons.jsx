@@ -21,7 +21,8 @@ function onclickHandler(e, index, button){
 
     return(
         <>
-            {ButtonsContent.map( (button, index) => <button onClick={(e)=> onclickHandler(e, index, button)} key={index}> {button.buttonId}</button> )}
+            {ButtonsContent.map( (button, index) =>  button.buttonType == "button" ? <button onClick={(e)=> onclickHandler(e, index, button)} key={index}> {button.buttonId}</button> : null )}
+            {ButtonsContent.map( (button, index) =>  button.buttonType == "select" ? <select onClick={(e)=> onclickHandler(e, index, button)} key={index}> {button.buttonId}</select> : null )}
         </>
     )
 }
