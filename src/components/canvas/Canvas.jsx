@@ -24,7 +24,6 @@ export default function Canvas() {
           if (index === 0) {
             ctx.moveTo(point.x, point.y);
           } else {
-            console.log('point.lineColor!!!!!!!!!!!!!!!!!!!!!', point.lineColor)
             ctx.lineWidth = point.width;
             ctx.fillStyle = point.lineColor 
             ctx.strokeStyle = point.lineColor 
@@ -83,12 +82,12 @@ return (
     
         <div className="App">
           { activeButton ? <p>{activeButton}</p> : null}
-          <p> widthSlider: {widthSlider}</p>
+          {/* <p> widthSlider: {widthSlider}</p> */}
             <canvas
                 ref={canvasRef}
                 width={window.innerWidth}
                 height={800}
-                onMouseDown={startDrawing}
+                onMouseDown={activeButton ? startDrawing : null}
                 onMouseUp={stopDrawing}
                 onMouseMove={drawLine}
                 onMouseLeave={stopDrawing}
