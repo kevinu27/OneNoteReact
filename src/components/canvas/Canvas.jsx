@@ -2,7 +2,6 @@ import './Canvas.css'
 // import { useState } from 'react'
 // import { useEffect } from 'react';
 import React, { useRef, useEffect, useState, useCallback, useContext } from 'react';
-import CanvasContextProvider from '../../context/canvas-context.jsx'
 import {CanvasContext} from '../../context/canvas-context.jsx'
 
 export default function Canvas() {
@@ -11,24 +10,34 @@ export default function Canvas() {
     const [isDrawing, setIsDrawing] = useState(false);
     const linesRef = useRef([]); 
 
-    const {activeButton, widthSlider} = useContext(CanvasContext)
-    console.log('activeButton', activeButton)
+    const {activeButton, widthSlider, lineStyle, lineColor} = useContext(CanvasContext)
     // se usa ref como estado en este caso, porque si se usase un estado el componenete se reejecutaria cada vez se mueve el rato dibujando y eso seria un consumo potente 
     // por demasiadas reejecuciones. Con el useRef se guarda ahi ya que el ref sobrevive los re-renders y no se pierde, y el useref no se reejecuta
-  
   
     const draw = useCallback((ctx) => {
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.strokeStyle = '#000';
-      ctx.lineWidth = 2;
       ctx.lineCap = 'round';
-  
       linesRef.current.forEach(line => {
         ctx.beginPath();
         line.forEach((point, index) => {
           if (index === 0) {
             ctx.moveTo(point.x, point.y);
           } else {
+            console.log('point.lineColor!!!!!!!!!!!!!!!!!!!!!', point.lineColor)
+            ctx.lineWidth = point.width;
+            ctx.fillStyle = point.lineColor 
+            ctx.strokeStyle = point.lineColor 
+            
+            if(point.lineStyle === 'Solid'){
+              ctx.setLineDash([]);
+            }else if(point.lineStyle === 'Dashed'){
+
+              ctx.setLineDash([1, 15]);
+            }else if(point.lineStyle === 'Dotted'){
+
+              ctx.setLineDash([point.width, point.width+10]);
+            }
             ctx.lineTo(point.x, point.y);
           }
         });
@@ -39,6 +48,7 @@ export default function Canvas() {
     useEffect(() => {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
+      console.log('useeffect')
       draw(ctx);
     }, [draw]);
   
@@ -46,7 +56,7 @@ export default function Canvas() {
       setIsDrawing(true);
       const { offsetX, offsetY } = e.nativeEvent;
       console.log('e.nativeEvent', e.nativeEvent)
-      linesRef.current.push([{ x: offsetX, y: offsetY }]);
+      linesRef.current.push([{ x: offsetX, y: offsetY, width: widthSlider, lineStyle: lineStyle, lineColor: lineColor  }]);
     };
   
     const stopDrawing = () => {
@@ -58,8 +68,9 @@ export default function Canvas() {
   
       const { offsetX, offsetY } = e.nativeEvent;
       const currentLine = linesRef.current[linesRef.current.length - 1];
-      currentLine.push({ x: offsetX, y: offsetY });
-  
+      currentLine.push({ x: offsetX, y: offsetY, width: currentLine[currentLine.length - 1].width, lineStyle: currentLine[currentLine.length - 1].lineStyle, lineColor: currentLine[currentLine.length - 1].lineColor });
+      console.log('linesRef.current', linesRef.current)
+      console.log('lineRef', linesRef)
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
       draw(ctx);

@@ -4,8 +4,8 @@ export const CanvasContext = createContext()
 
 function canvasReducer(state, action) {
     console.log('canvas reducer')
-    console.log('state', state)
-    console.log('action', action)
+    console.log('statecanvasReducer', state)
+    console.log('actioncanvasReducer', action)
 
     if(action.type == "ACTIVE_BUTTON"){
         console.log('ACTIVE_BUTTON')
@@ -23,9 +23,21 @@ function canvasReducer(state, action) {
         }
     }
 
-  
-    
-    
+    if(action.type == "STYLE_SELECT"){
+        console.log('STYLE_SELECT', action.payload)
+        return {
+            ...state,
+            lineStyle: action.payload,
+        }
+    }
+
+    if(action.type == "COLOR_PICKER"){
+        console.log('COLOR_PICKER', action.payload.target.value)
+        return {
+            ...state,
+            lineColor: action.payload.target.value,
+        }
+    }
 }
 
 
@@ -43,11 +55,27 @@ export default function CanvasContextProvider({children}) {
             payload: {sliderValue, e}
         })
     }
+
+    function handleSelectStyleValue(selectValue) {
+        canvasDispatch({
+            type: 'STYLE_SELECT',
+            payload: selectValue
+        })
+    }
+
+    function handleColorPickerValue(selectValue) {
+        canvasDispatch({
+            type: 'COLOR_PICKER',
+            payload: selectValue
+        })
+    }
    
     const [canvasState, canvasDispatch] = useReducer(canvasReducer,
         {
             activeButton: "" ,
-            widthSlider: 5
+            widthSlider: 5,
+            lineStyle: 'Solid',
+            lineColor: '#000000'
         }
     )
 
@@ -57,8 +85,12 @@ export default function CanvasContextProvider({children}) {
     const canvasContextValues = {
         activeButton: canvasState.activeButton,
         widthSlider: canvasState.widthSlider,
+        lineStyle: canvasState.lineStyle,
+        lineColor: canvasState.lineColor,
         handleActiveButton: handleActiveButton,
-        handleSliderValue: handleSliderValue
+        handleSliderValue: handleSliderValue,
+        handleSelectStyleValue: handleSelectStyleValue,
+        handleColorPickerValue: handleColorPickerValue
     }
 
     return (<CanvasContext.Provider value={canvasContextValues} >
