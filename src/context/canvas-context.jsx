@@ -9,17 +9,21 @@ function canvasReducer(state, action) {
 
     if(action.type == "ACTIVE_BUTTON"){
         console.log('ACTIVE_BUTTON')
-
+        return {
+            ...state,
+            activeButton:action.payload.buttonId,
+        }
     }
 
     if(action.type == "WIDTH_SLIDER"){
         console.log('WIDTH_SLIDER')
+        return {
+            ...state,
+            widthSlider:action.payload.e,
+        }
     }
 
-    return {
-        ...state,
-        activeButton:action.payload.buttonId
-    }
+  
     
     
 }
@@ -43,6 +47,7 @@ export default function CanvasContextProvider({children}) {
     const [canvasState, canvasDispatch] = useReducer(canvasReducer,
         {
             activeButton: "" ,
+            widthSlider: 5
         }
     )
 
@@ -51,6 +56,7 @@ export default function CanvasContextProvider({children}) {
 
     const canvasContextValues = {
         activeButton: canvasState.activeButton,
+        widthSlider: canvasState.widthSlider,
         handleActiveButton: handleActiveButton,
         handleSliderValue: handleSliderValue
     }

@@ -11,7 +11,7 @@ export default function Canvas() {
     const [isDrawing, setIsDrawing] = useState(false);
     const linesRef = useRef([]); 
 
-    const {activeButton} = useContext(CanvasContext)
+    const {activeButton, widthSlider} = useContext(CanvasContext)
     console.log('activeButton', activeButton)
     // se usa ref como estado en este caso, porque si se usase un estado el componenete se reejecutaria cada vez se mueve el rato dibujando y eso seria un consumo potente 
     // por demasiadas reejecuciones. Con el useRef se guarda ahi ya que el ref sobrevive los re-renders y no se pierde, y el useref no se reejecuta
@@ -72,6 +72,7 @@ return (
     
         <div className="App">
           { activeButton ? <p>{activeButton}</p> : null}
+          <p> widthSlider: {widthSlider}</p>
             <canvas
                 ref={canvasRef}
                 width={window.innerWidth}
