@@ -83,7 +83,6 @@ export default function CanvasContextProvider({children}) {
     )
 
 
-    const [activeButton, setactiveButton] = useState("")
 
     const canvasContextValues = {
         activeButton: canvasState.activeButton,

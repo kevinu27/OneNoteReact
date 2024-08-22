@@ -15,7 +15,7 @@ const ButtonsContent = [
 ]
 
 export default function Buttons() {
-const {handleDrawingButton, handleSliderValue, widthSlider, handleSelectStyleValue, handleColorPickerValue, activeButton} = useContext(CanvasContext)
+const {handleDrawingButton, handleSliderValue, widthSlider, handleSelectStyleValue, handleColorPickerValue, activeButton, lineColor} = useContext(CanvasContext)
 
     function onclickHandler(e, index, button){
 
@@ -46,7 +46,7 @@ const {handleDrawingButton, handleSliderValue, widthSlider, handleSelectStyleVal
                 {ButtonsContent.map( (button, index) =>  button.buttonType == "button" ? <button className={activeButton ? 'boton-activado':'boton-desactivado'} onClick={(e)=> onclickHandler(e, index, button)} key={index}> {button.buttonId}</button> : null )}
                 {ButtonsContent.map( (button, index) =>  button.buttonType == "select" ? <> <label>{button.buttonId}</label>  <select key={index} onChange={(e) => onSelectStrokeStyleHandler(e, index, button)}> {button.options.map((option, optionIndex) => ( <option key={optionIndex} value={option}> {option}</option>))}</select></> : null)}
                 {ButtonsContent.map( (button, index) =>  button.buttonType == "slider" ?  <div key={index}> <label htmlFor={button.buttonId}>{button.buttonId}: {widthSlider} </label> <input type="range" id={button.buttonId} min={button.min} max={button.max} defaultValue={button.defaultValue} onChange={(e) => onSliderHandler(e, index, button)} /> </div> : null )}
-                {ButtonsContent.map( (button, index) =>  button.buttonType == "color" ?  <div key={index}> <label htmlFor={button.buttonId}>{button.buttonId} </label> <input type="color" id={button.buttonId}  value={"#000000"} onChange={(e) => onColorPickerHandler(e, index, button)} /> </div> : null )}
+                {ButtonsContent.map( (button, index) =>  button.buttonType == "color" ?  <div key={index}> <label htmlFor={button.buttonId}>{button.buttonId} </label> <input type="color" id={button.buttonId}  value={lineColor} onChange={(e) => onColorPickerHandler(e, index, button)} /> </div> : null )}
             </div>
         </>
     )

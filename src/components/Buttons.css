@@ -1,11 +1,15 @@
 .boton-desactivado{
-    background-color: gray;
+    background-color: lightgrey;
 }
 
 .boton-activado{
-    background-color: red;
+    background-color: indianred;
 }
 
 .buttons-row{
     display: flex;
+}
+
+.buttons-row *{
+    margin-right: 2rem;
 }
