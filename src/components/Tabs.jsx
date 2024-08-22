@@ -19,12 +19,12 @@ export default function Tabs() {
 
     console.log('activeTab', activeTab) 
 
-    function onTabClickHandler(tabName, index) {
+    function onTabClickHandler(tab, index) {
         console.log('onclick de la tab')
-        console.log('onclick de la tab tabName', tabName)
+        console.log('onclick de la tab tab', tab)
         console.log('onclick de la index', index)
 
-        // handleTabSelection(tab);
+        handleTabSelection(tab, index);
     }
 
     return(
@@ -33,7 +33,8 @@ export default function Tabs() {
                 tabs Componente:
                 {activeTab.name}
             </p> */}
-            <div className='tabs-row'>  { tabs.length > 0 ? tabs.map( (tab, index) => <p className='tab' onClick={()=> onTabClickHandler(tab.name, index )} key={index}>tabs.name {tab.name} - </p> )  : null} </div>
+            {activeTab.name}
+            <div className='tabs-row'>  { tabs.length > 0 ? tabs.map( (tab, index) => <p className={`tab ${activeTab.name == tab.name ? 'active-tab' : ''}`} onClick={()=> onTabClickHandler(tab, index )} key={index}>tabs.name {tab.name} - </p> )  : null} </div>
          
           
          

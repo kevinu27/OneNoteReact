@@ -6,7 +6,7 @@ function tabsReducer(state, action){
     console.log('tabs reducer')
 
     if(action.type == "ACTIVE_TAB"){
-        console.log('ACTIVE_TAB')
+        console.log('ACTIVE_TAB ---- action....', action)
         
             return {
                 ...state,
@@ -36,7 +36,7 @@ function tabsReducer(state, action){
 
 export default function TabsContextProvider({children}) {
     function handleTabSelection(tab) {
-        console.log('tab', tab)
+        console.log('tab----', tab)
         tabsDispatch({
             type: 'ACTIVE_TAB',
             payload: tab
@@ -52,7 +52,7 @@ export default function TabsContextProvider({children}) {
 
 const [tabsState, tabsDispatch] = useReducer(tabsReducer, {
 
-    activeTab: {name:'+', index: 0},
+    activeTab: {},
     tabs: [{name:'+', index: 0, color:'#fff'}]
     
 })

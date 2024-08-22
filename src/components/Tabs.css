@@ -11,3 +11,7 @@
     margin-bottom: 0px;
 
 }
+
+.active-tab{
+    background-color: red;
+}
