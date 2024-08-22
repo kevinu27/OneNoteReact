@@ -34,7 +34,7 @@ export default function Tabs() {
                 {activeTab.name}
             </p> */}
             {activeTab.name}
-            <div className='tabs-row'>  { tabs.length > 0 ? tabs.map( (tab, index) => <p className={`tab ${activeTab.name == tab.name ? 'active-tab' : ''}`} onClick={()=> onTabClickHandler(tab, index )} key={index}>tabs.name {tab.name} - </p> )  : null} </div>
+            <div className='tabs-row'>  { tabs.length > 0 ? tabs.map( (tab, index) => <input type="text" className={`tab ${activeTab.name == tab.name ? 'active-tab' : ''}`} onClick={()=> onTabClickHandler(tab, index )} key={index} value={tab.name}></input> )  : null} </div>
          
           
          
