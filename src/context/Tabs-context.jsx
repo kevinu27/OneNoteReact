@@ -17,18 +17,20 @@ function tabsReducer(state, action){
     }
     if(action.type == "LOAD_TABS"){
         console.log('LOAD_TABS')
+        console.log('state', state)
+        console.log('action', action)
         
             return {
                 ...state,
-                tabs: action.payload,
+                tabs: [ action.payload, ...state.tabs ],
             }
    
      
     }
-    return {
-        ...state,
-        activeTab: action.payload ,
-    }
+    // return {
+    //     ...state,
+    //     activeTab: action.payload ,
+    // }
 
 }
 
@@ -40,18 +42,18 @@ export default function TabsContextProvider({children}) {
             payload: tab
         })
     }
-    function handleTabsLoad(tab) {
-        console.log('tab en handleTabsLoad', tab)
+    function handleTabsLoad(tabs) {
+        console.log('tab en handleTabsLoad', tabs)
         tabsDispatch({
             type: 'LOAD_TABS',
-            payload: tab
+            payload: tabs
         })
     }
 
 const [tabsState, tabsDispatch] = useReducer(tabsReducer, {
 
-    activeTab: {name:'', index: 0},
-    tabs: []
+    activeTab: {name:'+', index: 0},
+    tabs: [{name:'+', index: 0, color:'#fff'}]
     
 })
 

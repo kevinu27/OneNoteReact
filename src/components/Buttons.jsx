@@ -7,9 +7,9 @@ import './Buttons.css'
 const ButtonsContent = [
     {buttonId: "drawing", buttonType:'button'},
     {buttonId: "stroke", buttonType: 'select', options: ['Solid', 'Dashed', 'Dotted'] },
-    {buttonId: "Linewidth", buttonType: 'slider', min: 0, max: 20, defaultValue: 5 },
-    {buttonId: "color", buttonType: 'color' }
-
+    {buttonId: "Linewidth", buttonType: 'slider', min: 1, max: 20, defaultValue: 5 },
+    {buttonId: "color", buttonType: 'color' },
+    {buttonId: "borrar", buttonType: 'slider', min: 0, max: 20, defaultValue: 5 }
     
     
 ]

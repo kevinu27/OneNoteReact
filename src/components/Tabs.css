@@ -1,0 +1,13 @@
+.tabs-row{
+    /* width: 100%; */
+    /* border: 2px solid red; */
+    display: flex;
+    margin-bottom: 0px;
+}
+.tab{
+    border: 2px solid red;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    margin-bottom: 0px;
+
+}
