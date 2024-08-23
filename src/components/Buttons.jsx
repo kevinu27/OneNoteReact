@@ -9,20 +9,29 @@ const ButtonsContent = [
     {buttonId: "stroke", buttonType: 'select', options: ['Solid', 'Dashed', 'Dotted'] },
     {buttonId: "Linewidth", buttonType: 'slider', min: 1, max: 20, defaultValue: 5 },
     {buttonId: "color", buttonType: 'color' },
-    {buttonId: "borrar", buttonType: 'slider', min: 1, max: 20, defaultValue: 5 }
+    {buttonId: "borrar", buttonType: 'slider', min: 1, max: 20, defaultValue: 5 },
+    {buttonId: "save", buttonType: 'button'}
+
     
     
 ]
 
 export default function Buttons() {
-const {handleDrawingButton, handleSliderValue, widthSlider, handleSelectStyleValue, handleColorPickerValue, activeButton, lineColor} = useContext(CanvasContext)
+const {handleButton, handleSliderValue, widthSlider, handleSelectStyleValue, handleColorPickerValue, activeButton, lineColor} = useContext(CanvasContext)
 
     function onclickHandler(e, index, button){
 
-        console.log('click, e', e.target.value)
+        console.log('click, e', e)
         console.log('click, index', index)
-        handleDrawingButton(!activeButton)
+        console.log('click, button', button)
+        if(button.buttonId = 'save'){
+            // aqui pongo que guarde o en local o en el Storage
+        }
+        if(button.buttonId = 'drawing'){
+            handleButton(!activeButton, index, button)
+        }
     }
+    
 
     function onSliderHandler(e, index, button) {
         handleSliderValue(button, e.target.value);

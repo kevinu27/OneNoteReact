@@ -6,17 +6,29 @@ function canvasReducer(state, action) {
     console.log('canvas reducer')
     console.log('statecanvasReducer', state)
     console.log('actioncanvasReducer-!_!_!_!_!_!!_!_!_!_', action)
+    console.log('actioncanvasReducer-!_!_!_!_!_!!_!_!_!_', action.payload.button.buttonId)
 
-    if(action.type == "ACTIVE_BUTTON"){
-        console.log('ACTIVE_BUTTON')
+    if(action.type == "ACTIVE_BUTTON" && action.payload.button.buttonId == 'drawing'){
+        console.log('ACTIVE_BUTTON - DRAWING')
         
             return {
                 ...state,
-                activeButton: action.payload ,
+                activeButton: action.payload.isActiveButton
             }
    
      
     }
+
+    // if(action.type == "ACTIVE_BUTTON" && action.payload.button.buttonId  == 'save'){
+    //     console.log('ACTIVE_BUTTON - SAVE')
+        
+        
+    //         return {
+    //             ...state
+    //         }
+   
+     
+    // }
 
     if(action.type == "WIDTH_SLIDER"){
         console.log('WIDTH_SLIDER')
@@ -46,10 +58,10 @@ function canvasReducer(state, action) {
 
 export default function CanvasContextProvider({children}) {
 
-    function handleDrawingButton(button) {
+    function handleButton(isActiveButton, index, button) {
         canvasDispatch({
             type: 'ACTIVE_BUTTON',
-            payload: button
+            payload: {isActiveButton, index, button}
         })
     }
     function handleSliderValue(sliderValue, e) {
@@ -89,7 +101,7 @@ export default function CanvasContextProvider({children}) {
         widthSlider: canvasState.widthSlider,
         lineStyle: canvasState.lineStyle,
         lineColor: canvasState.lineColor,
-        handleDrawingButton: handleDrawingButton,
+        handleButton: handleButton,
         handleSliderValue: handleSliderValue,
         handleSelectStyleValue: handleSelectStyleValue,
         handleColorPickerValue: handleColorPickerValue
