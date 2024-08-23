@@ -44,9 +44,9 @@ export default function Tabs() {
                 tabs Componente:
                 {activeTab.name}
             </p> */}
-            {activeTab.name}
+            {/* {activeTab.name} */}
             <div className='tabs-row'>  { tabs.length > 0 ? tabs.map( (tab, index) =><> <input type="text" className={`tab ${activeTab.name == tab.name ? 'active-tab' : ''}`} onClick={()=> onTabClickHandler(tab, index )} onChange={(e)=> onNameChangeHandler(e, tab, index)}  key={index} value={tab.name}></input>  <p>{tab.name}</p></>)  : null} </div>
-        <div>
+        {/* <div>
            {
             tabs.map( tab => 
             <div className='prueba'>
@@ -56,7 +56,7 @@ export default function Tabs() {
 
             </div> 
             )}
-        </div>
+        </div> */}
           
          
         </>

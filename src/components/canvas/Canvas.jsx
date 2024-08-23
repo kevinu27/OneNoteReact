@@ -3,6 +3,7 @@ import './Canvas.css'
 // import { useEffect } from 'react';
 import React, { useRef, useEffect, useState, useCallback, useContext } from 'react';
 import {CanvasContext} from '../../context/canvas-context.jsx'
+import { TabsContext } from '../../context/Tabs-context.jsx'
 
 export default function Canvas() {
 
@@ -11,6 +12,8 @@ export default function Canvas() {
     const linesRef = useRef([]); 
 
     const {activeButton, widthSlider, lineStyle, lineColor} = useContext(CanvasContext)
+    const { activeTab } = useContext(TabsContext)
+    console.log('active tab en el canvas.jsx', activeTab)
     // se usa ref como estado en este caso, porque si se usase un estado el componenete se reejecutaria cada vez se mueve el rato dibujando y eso seria un consumo potente 
     // por demasiadas reejecuciones. Con el useRef se guarda ahi ya que el ref sobrevive los re-renders y no se pierde, y el useref no se reejecuta
   
@@ -21,6 +24,9 @@ export default function Canvas() {
       linesRef.current.forEach(line => {
         ctx.beginPath();
         line.forEach((point, index) => {
+          // if(point.index == activeTab.index){
+
+          
           if (index === 0) {
             ctx.moveTo(point.x, point.y);
           } else {
@@ -39,6 +45,7 @@ export default function Canvas() {
             }
             ctx.lineTo(point.x, point.y);
           }
+        // }
         });
         ctx.stroke();
       });
@@ -67,7 +74,7 @@ export default function Canvas() {
   
       const { offsetX, offsetY } = e.nativeEvent;
       const currentLine = linesRef.current[linesRef.current.length - 1];
-      currentLine.push({ x: offsetX, y: offsetY, width: currentLine[currentLine.length - 1].width, lineStyle: currentLine[currentLine.length - 1].lineStyle, lineColor: currentLine[currentLine.length - 1].lineColor });
+      currentLine.push({ x: offsetX, y: offsetY, width: currentLine[currentLine.length - 1].width, lineStyle: currentLine[currentLine.length - 1].lineStyle, lineColor: currentLine[currentLine.length - 1].lineColor, tabIndex: activeTab.index});
       console.log('linesRef.current', linesRef.current)
       console.log('lineRef', linesRef)
       const canvas = canvasRef.current;
