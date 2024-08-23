@@ -62,7 +62,7 @@ export default function Canvas() {
       setIsDrawing(true);
       const { offsetX, offsetY } = e.nativeEvent;
       console.log('e.nativeEvent', e.nativeEvent)
-      linesRef.current.push([{ x: offsetX, y: offsetY, width: widthSlider, lineStyle: lineStyle, lineColor: lineColor  }]);
+      linesRef.current.push([{ x: offsetX, y: offsetY, width: widthSlider, lineStyle: lineStyle, lineColor: lineColor , tabIndex: activeTab.index }]);
     };
   
     const stopDrawing = () => {
