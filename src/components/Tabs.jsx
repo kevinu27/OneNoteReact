@@ -46,7 +46,17 @@ export default function Tabs() {
             </p> */}
             {activeTab.name}
             <div className='tabs-row'>  { tabs.length > 0 ? tabs.map( (tab, index) =><> <input type="text" className={`tab ${activeTab.name == tab.name ? 'active-tab' : ''}`} onClick={()=> onTabClickHandler(tab, index )} onChange={(e)=> onNameChangeHandler(e, tab, index)}  key={index} value={tab.name}></input>  <p>{tab.name}</p></>)  : null} </div>
-        
+        <div>
+           {
+            tabs.map( tab => 
+            <div className='prueba'>
+                <p>{tab.name} - {' '}</p>
+                <p>{tab.index} - {' '}</p>
+                <p>{tab.color} - {' '}</p>
+
+            </div> 
+            )}
+        </div>
           
          
         </>

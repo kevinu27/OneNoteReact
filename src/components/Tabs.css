@@ -15,3 +15,7 @@
 .active-tab{
     background-color: red;
 }
+
+.prueba{
+    display: flex;
+}
