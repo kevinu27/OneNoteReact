@@ -6,7 +6,7 @@ import './Tabs.css'
 
 export default function Tabs() {
 
-    const { activeTab, handleTabSelection , tabs, handleTabsLoad } = useContext(TabsContext)
+    const { activeTab, handleTabSelection , tabs, handleTabsLoad, handleTabNameChange } = useContext(TabsContext)
     
     useEffect(() => {
         console.log('tabs en el useffect', tabs)
@@ -20,12 +20,23 @@ export default function Tabs() {
     console.log('activeTab', activeTab) 
 
     function onTabClickHandler(tab, index) {
-        console.log('onclick de la tab')
-        console.log('onclick de la tab tab', tab)
-        console.log('onclick de la index', index)
+        // console.log('onclick de la tab')
+        tab.index = index
+        // console.log('onclick de la tab tab!!!!!!!', tab)
+        // console.log('onclick de la index', index)
 
-        handleTabSelection(tab, index);
+        handleTabSelection(tab);
     }
+    function onNameChangeHandler(e, tab, index) {
+        console.log('oncange de la tab event-------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', tab)
+        console.log('oncange de la tab index -----', index)
+        console.log('oncange de la tab e -----', e)
+        // const tabName =  event.target.value
+        // console.log('o--------', tab)
+        const updatedTab = { ...tab, name: e.target.value, index };  // create a new object with updated name
+        handleTabNameChange(updatedTab);
+    }
+
 
     return(
         <>
@@ -34,8 +45,8 @@ export default function Tabs() {
                 {activeTab.name}
             </p> */}
             {activeTab.name}
-            <div className='tabs-row'>  { tabs.length > 0 ? tabs.map( (tab, index) => <input type="text" className={`tab ${activeTab.name == tab.name ? 'active-tab' : ''}`} onClick={()=> onTabClickHandler(tab, index )} key={index} value={tab.name}></input> )  : null} </div>
-         
+            <div className='tabs-row'>  { tabs.length > 0 ? tabs.map( (tab, index) =><> <input type="text" className={`tab ${activeTab.name == tab.name ? 'active-tab' : ''}`} onClick={()=> onTabClickHandler(tab, index )} onChange={(e)=> onNameChangeHandler(e, tab, index)}  key={index} value={tab.name}></input>  <p>{tab.name}</p></>)  : null} </div>
+        
           
          
         </>

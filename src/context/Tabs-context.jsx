@@ -6,7 +6,7 @@ function tabsReducer(state, action){
     console.log('tabs reducer')
 
     if(action.type == "ACTIVE_TAB"){
-        console.log('ACTIVE_TAB ---- action....', action)
+        // console.log('ACTIVE_TAB ---- action....', action)
         
             return {
                 ...state,
@@ -24,6 +24,24 @@ function tabsReducer(state, action){
                 ...state,
                 tabs: [ action.payload, ...state.tabs ],
             }
+    }
+
+    if(action.type == "NAME_TABS"){
+        console.log('NAME_TABS**********-------------------------')
+        console.log('state named ---', state)
+        console.log('action named ---', action)
+        // const tabsRenamed = state.tabs.map( tab => tab.index == action.payload.index ? tab.name = action.payload.name : null
+        // )
+        // console.log('tabsRenamed', tabsRenamed)
+        
+        return {
+            ...state,
+            tabs: state.tabs.map(tab =>
+                tab.index === action.payload.index
+                    ? { ...tab, name: action.payload.name }
+                    : tab
+            )
+        };
    
      
     }
@@ -36,16 +54,25 @@ function tabsReducer(state, action){
 
 export default function TabsContextProvider({children}) {
     function handleTabSelection(tab) {
-        console.log('tab----', tab)
+        // console.log('tab----', tab)
         tabsDispatch({
             type: 'ACTIVE_TAB',
             payload: tab
         })
     }
+
     function handleTabsLoad(tabs) {
-        console.log('tab en handleTabsLoad', tabs)
+        // console.log('tab en handleTabsLoad', tabs)
         tabsDispatch({
             type: 'LOAD_TABS',
+            payload: tabs
+        })
+    }
+
+    function handleTabNameChange(tabs) {
+        console.log('tab en handleTabsLoadoooooooooooooooooooo', tabs)
+        tabsDispatch({
+            type: 'NAME_TABS',
             payload: tabs
         })
     }
@@ -61,7 +88,8 @@ const tabsContextValues = {
     activeTab: tabsState.activeTab,
     tabs: tabsState.tabs,
     handleTabSelection: handleTabSelection,
-    handleTabsLoad: handleTabsLoad
+    handleTabsLoad: handleTabsLoad,
+    handleTabNameChange: handleTabNameChange
 
 }
 
