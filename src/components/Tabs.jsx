@@ -17,7 +17,7 @@ export default function Tabs() {
         // }
       }, []);
 
-    console.log('activeTab', activeTab) 
+    console.log('activeTab*//*/*/*/*/*/*/*/*/*/*/*/*/*/', activeTab) 
 
     function onTabClickHandler(tab, index) {
         // console.log('onclick de la tab')
@@ -31,6 +31,7 @@ export default function Tabs() {
         console.log('oncange de la tab event-------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', tab)
         console.log('oncange de la tab index -----', index)
         console.log('oncange de la tab e -----', e)
+        // const activeTabIndex = activeTab.index
         // const tabName =  event.target.value
         // console.log('o--------', tab)
         const updatedTab = { ...tab, name: e.target.value, index };  // create a new object with updated name

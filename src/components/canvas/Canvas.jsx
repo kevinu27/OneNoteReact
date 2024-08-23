@@ -13,19 +13,23 @@ export default function Canvas() {
 
     const {activeButton, widthSlider, lineStyle, lineColor} = useContext(CanvasContext)
     const { activeTab } = useContext(TabsContext)
-    console.log('active tab en el canvas.jsx', activeTab)
     // se usa ref como estado en este caso, porque si se usase un estado el componenete se reejecutaria cada vez se mueve el rato dibujando y eso seria un consumo potente 
     // por demasiadas reejecuciones. Con el useRef se guarda ahi ya que el ref sobrevive los re-renders y no se pierde, y el useref no se reejecuta
-  
-    const draw = useCallback((ctx) => {
+    
+    console.log('active tab en el canvas.jsx', activeTab)
+    const draw = useCallback((ctx, activeTab) => {
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.strokeStyle = '#000';
       ctx.lineCap = 'round';
       linesRef.current.forEach(line => {
         ctx.beginPath();
         line.forEach((point, index) => {
-          // if(point.index == activeTab.index){
 
+          // console.log('point.index canvaaaaaas',  point)
+          // console.log('activeTab.index  canvaaaaaas-/*-/*-/*-/*-/*-/*-/*-*//*--/-',  activeTab)
+
+          if(point.tabIndex == activeTab.index){
+            // console.log('point.index canvaaaaaas-------dentro del if')
           
           if (index === 0) {
             ctx.moveTo(point.x, point.y);
@@ -45,7 +49,7 @@ export default function Canvas() {
             }
             ctx.lineTo(point.x, point.y);
           }
-        // }
+        }
         });
         ctx.stroke();
       });
@@ -55,8 +59,8 @@ export default function Canvas() {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
       console.log('useeffect')
-      draw(ctx);
-    }, [draw]);
+      draw(ctx, activeTab);
+    }, [draw, activeTab ]);
   
     const startDrawing = (e) => {
       setIsDrawing(true);
@@ -79,7 +83,7 @@ export default function Canvas() {
       console.log('lineRef', linesRef)
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
-      draw(ctx);
+      draw(ctx, activeTab);
     };
   
 
