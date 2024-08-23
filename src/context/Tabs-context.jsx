@@ -6,7 +6,7 @@ function tabsReducer(state, action){
     console.log('tabs reducer')
 
     if(action.type == "ACTIVE_TAB"){
-        // console.log('ACTIVE_TAB ---- action....', action)
+        console.log('ACTIVE_TAB ---- action....', action)
         
             return {
                 ...state,
@@ -36,6 +36,7 @@ function tabsReducer(state, action){
         
         return {
             ...state,
+            activeTab: action.payload,
             tabs: state.tabs.map(tab =>
                 tab.index === action.payload.index
                     ? { ...tab, name: action.payload.name }
