@@ -18,16 +18,16 @@ function canvasReducer(state, action) {
      
     }
 
-    // if(action.type == "ACTIVE_BUTTON" && action.payload.button.buttonId  == 'save'){
-    //     console.log('ACTIVE_BUTTON - SAVE')
+    if(action.type == "ACTIVE_BUTTON" && action.payload.button.buttonId  == 'save'){
+        console.log('ACTIVE_BUTTON - SAVE')
         
         
-    //         return {
-    //             ...state
-    //         }
+            return {
+                ...state
+            }
    
      
-    // }
+    }
 
     if(action.type == "WIDTH_SLIDER"){
         console.log('WIDTH_SLIDER')
@@ -60,12 +60,23 @@ function canvasReducer(state, action) {
             // lineColor: action.payload.target.value,
         }
     }
+
+    if(action.type == "SET_TABS"){
+        console.log('SET_TABS')
+        console.log('SET_TABS', action.payload)
+        return {
+            ...state,
+            tabs: action.payload
+        }
+    }
+
 }
 
 
 export default function CanvasContextProvider({children}) {
 
     function handleButton(isActiveButton, index, button) {
+        
         canvasDispatch({
             type: 'ACTIVE_BUTTON',
             payload: {isActiveButton, index, button}
@@ -98,6 +109,14 @@ export default function CanvasContextProvider({children}) {
             payload: selectValue
         })
     }
+
+    
+    function setTabs(tabs) {
+        canvasDispatch({
+            type: 'SET_TABS',
+            payload: tabs
+        })
+    }
    
     const [canvasState, canvasDispatch] = useReducer(canvasReducer,
         {
@@ -105,7 +124,8 @@ export default function CanvasContextProvider({children}) {
             widthSlider: 5,
             lineStyle: 'Solid',
             lineColor: '#000000',
-            textBoxes: []
+            textBoxes: [],
+            tabs:[]
         }
     )
 
@@ -121,7 +141,9 @@ export default function CanvasContextProvider({children}) {
         handleSliderValue: handleSliderValue,
         handleSelectStyleValue: handleSelectStyleValue,
         handleColorPickerValue: handleColorPickerValue,
-        handleTextBoxessLoad: handleTextBoxessLoad
+        handleTextBoxessLoad: handleTextBoxessLoad,
+        setTabs: setTabs,
+        tabs: canvasState.tabs
     }
 
     return (<CanvasContext.Provider value={canvasContextValues} >

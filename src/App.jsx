@@ -10,7 +10,7 @@ function App() {
   return (
     <TabsContextProvider>
     <CanvasContextProvider>
-      <p>header</p>
+
       <Buttons></Buttons>
       <Tabs></Tabs>
       <Canvas/>

@@ -17,7 +17,7 @@ const ButtonsContent = [
 ]
 
 export default function Buttons() {
-const {handleButton, handleSliderValue, widthSlider, handleSelectStyleValue, handleColorPickerValue, activeButton, lineColor} = useContext(CanvasContext)
+const {handleButton, handleSliderValue, widthSlider, handleSelectStyleValue, handleColorPickerValue, activeButton, lineColor, setTabs, tabs} = useContext(CanvasContext)
 
     function onclickHandler(e, index, button){
 
@@ -26,6 +26,8 @@ const {handleButton, handleSliderValue, widthSlider, handleSelectStyleValue, han
         console.log('click, button', button)
         if(button.buttonId = 'save'){
             // aqui pongo que guarde o en local o en el Storage
+            handleButton(!activeButton, index, button)
+
         }
         if(button.buttonId = 'drawing'){
             handleButton(!activeButton, index, button)
@@ -46,8 +48,12 @@ const {handleButton, handleSliderValue, widthSlider, handleSelectStyleValue, han
 
         handleColorPickerValue(color);
     }
+    function onSaveHandler() {
+console.log('tabs---save!!!!!______________', tabs)
+localStorage.setItem('tabs', JSON.stringify(tabs));
+        // setTabs()
+    }
     
-    console.log('activeButton******', activeButton)
 
     return(
         <>
@@ -56,6 +62,7 @@ const {handleButton, handleSliderValue, widthSlider, handleSelectStyleValue, han
                 {ButtonsContent.map( (button, index) =>  button.buttonType == "select" ? <> <label>{button.buttonId}</label>  <select key={index} onChange={(e) => onSelectStrokeStyleHandler(e, index, button)}> {button.options.map((option, optionIndex) => ( <option key={optionIndex} value={option}> {option}</option>))}</select></> : null)}
                 {ButtonsContent.map( (button, index) =>  button.buttonType == "slider" ?  <div key={index}> <label htmlFor={button.buttonId}>{button.buttonId}: {widthSlider} </label> <input type="range" id={button.buttonId} min={button.min} max={button.max} defaultValue={button.defaultValue} onChange={(e) => onSliderHandler(e, index, button)} /> </div> : null )}
                 {ButtonsContent.map( (button, index) =>  button.buttonType == "color" ?  <div key={index}> <label htmlFor={button.buttonId}>{button.buttonId} </label> <input type="color" id={button.buttonId}  value={lineColor} onChange={(e) => onColorPickerHandler(e, index, button)} /> </div> : null )}
+                <button onClick={(e)=> onSaveHandler()}>  SAVE</button>
             </div>
         </>
     )

@@ -1,6 +1,4 @@
 import './Canvas.css'
-// import { useState } from 'react'
-// import { useEffect } from 'react';
 import React, { useRef, useEffect, useState, useCallback, useContext } from 'react';
 import {CanvasContext} from '../../context/canvas-context.jsx'
 import { TabsContext } from '../../context/Tabs-context.jsx'
@@ -12,7 +10,7 @@ export default function Canvas() {
     const linesRef = useRef([]); 
     const textBoxesRef = useRef([]); 
 
-    const {activeButton, widthSlider, lineStyle, lineColor, handleTextBoxessLoad} = useContext(CanvasContext)
+    const {activeButton, widthSlider, lineStyle, lineColor, tabs, setTabs} = useContext(CanvasContext)
     const { activeTab } = useContext(TabsContext)
     const [, updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);
@@ -86,6 +84,7 @@ export default function Canvas() {
   
     const stopDrawing = () => {
       setIsDrawing(false);
+      setTabs(linesRef.current)
     };
   
     const drawLine = (e) => {
