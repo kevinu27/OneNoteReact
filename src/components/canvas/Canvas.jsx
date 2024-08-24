@@ -10,7 +10,7 @@ export default function Canvas() {
     const linesRef = useRef([]); 
     const textBoxesRef = useRef([]); 
 
-    const {activeButton, widthSlider, lineStyle, lineColor, tabs, setTabs} = useContext(CanvasContext)
+    const {activeButton, widthSlider, lineStyle, lineColor, setTextBoxes, setTabs} = useContext(CanvasContext)
     const { activeTab } = useContext(TabsContext)
     const [, updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);
@@ -85,6 +85,7 @@ export default function Canvas() {
     const stopDrawing = () => {
       setIsDrawing(false);
       setTabs(linesRef.current)
+      setTextBoxes(textBoxesRef.current)
     };
   
     const drawLine = (e) => {

@@ -10,14 +10,13 @@ const ButtonsContent = [
     {buttonId: "Linewidth", buttonType: 'slider', min: 1, max: 20, defaultValue: 5 },
     {buttonId: "color", buttonType: 'color' },
     {buttonId: "borrar", buttonType: 'slider', min: 1, max: 20, defaultValue: 5 },
-    {buttonId: "save", buttonType: 'button'}
 
     
     
 ]
 
 export default function Buttons() {
-const {handleButton, handleSliderValue, widthSlider, handleSelectStyleValue, handleColorPickerValue, activeButton, lineColor, setTabs, tabs} = useContext(CanvasContext)
+const {handleButton, handleSliderValue, widthSlider, handleSelectStyleValue, handleColorPickerValue, activeButton, lineColor, textBoxes, tabs} = useContext(CanvasContext)
 
     function onclickHandler(e, index, button){
 
@@ -51,6 +50,7 @@ const {handleButton, handleSliderValue, widthSlider, handleSelectStyleValue, han
     function onSaveHandler() {
 console.log('tabs---save!!!!!______________', tabs)
 localStorage.setItem('tabs', JSON.stringify(tabs));
+localStorage.setItem('textBoxes', JSON.stringify(textBoxes));
         // setTabs()
     }
     

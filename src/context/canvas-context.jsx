@@ -70,6 +70,15 @@ function canvasReducer(state, action) {
         }
     }
 
+    if(action.type == "SET_TEXT_BOXES"){
+        console.log('SET_TEXT_BOXES')
+        console.log('SET_TEXT_BOXES', action.payload)
+        return {
+            ...state,
+            textBoxes: action.payload
+        }
+    }
+
 }
 
 
@@ -117,6 +126,14 @@ export default function CanvasContextProvider({children}) {
             payload: tabs
         })
     }
+
+    function setTextBoxes(textBoxes) {
+        console.log('setTextBoxes..................', textBoxes)
+        canvasDispatch({
+            type: 'SET_TEXT_BOXES',
+            payload: textBoxes
+        })
+    }
    
     const [canvasState, canvasDispatch] = useReducer(canvasReducer,
         {
@@ -143,6 +160,7 @@ export default function CanvasContextProvider({children}) {
         handleColorPickerValue: handleColorPickerValue,
         handleTextBoxessLoad: handleTextBoxessLoad,
         setTabs: setTabs,
+        setTextBoxes: setTextBoxes,
         tabs: canvasState.tabs
     }
 
