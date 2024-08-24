@@ -9,7 +9,7 @@ export default function Tabs() {
     const { activeTab, handleTabSelection , tabs, handleTabsLoad, handleTabNameChange } = useContext(TabsContext)
     
     useEffect(() => {
-        console.log('tabs en el useffect', tabs)
+        // console.log('tabs en el useffect', tabs)
         // if(tabs.length < 1){
         //     console.log('no tabs')
 
@@ -17,7 +17,7 @@ export default function Tabs() {
         // }
       }, []);
 
-    console.log('activeTab*//*/*/*/*/*/*/*/*/*/*/*/*/*/', activeTab) 
+    // console.log('activeTab*//*/*/*/*/*/*/*/*/*/*/*/*/*/', activeTab) 
 
     function onTabClickHandler(tab, index) {
         // console.log('onclick de la tab')

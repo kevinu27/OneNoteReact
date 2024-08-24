@@ -6,7 +6,6 @@ function canvasReducer(state, action) {
     console.log('canvas reducer')
     console.log('statecanvasReducer', state)
     console.log('actioncanvasReducer-!_!_!_!_!_!!_!_!_!_', action)
-    // console.log('actioncanvasReducer-!_!_!_!_!_!!_!_!_!_', action.payload.button.buttonId)
 
     if(action.type == "ACTIVE_BUTTON" && action.payload.button.buttonId == 'drawing'){
         console.log('ACTIVE_BUTTON - DRAWING')
@@ -53,6 +52,14 @@ function canvasReducer(state, action) {
             lineColor: action.payload.target.value,
         }
     }
+
+    if(action.type == "LOAD_TEXTBOXES"){
+        console.log('LOAD_TEXTBOXES', action.payload.target.value)
+        return {
+            ...state,
+            // lineColor: action.payload.target.value,
+        }
+    }
 }
 
 
@@ -83,6 +90,13 @@ export default function CanvasContextProvider({children}) {
             type: 'COLOR_PICKER',
             payload: selectValue
         })
+    }    
+    
+    function handleTextBoxessLoad(selectValue) {
+        canvasDispatch({
+            type: 'LOAD_TEXTBOXES',
+            payload: selectValue
+        })
     }
    
     const [canvasState, canvasDispatch] = useReducer(canvasReducer,
@@ -90,7 +104,8 @@ export default function CanvasContextProvider({children}) {
             activeButton: false ,
             widthSlider: 5,
             lineStyle: 'Solid',
-            lineColor: '#000000'
+            lineColor: '#000000',
+            textBoxes: []
         }
     )
 
@@ -101,10 +116,12 @@ export default function CanvasContextProvider({children}) {
         widthSlider: canvasState.widthSlider,
         lineStyle: canvasState.lineStyle,
         lineColor: canvasState.lineColor,
+        textBoxes: canvasState.textBoxes,
         handleButton: handleButton,
         handleSliderValue: handleSliderValue,
         handleSelectStyleValue: handleSelectStyleValue,
-        handleColorPickerValue: handleColorPickerValue
+        handleColorPickerValue: handleColorPickerValue,
+        handleTextBoxessLoad: handleTextBoxessLoad
     }
 
     return (<CanvasContext.Provider value={canvasContextValues} >

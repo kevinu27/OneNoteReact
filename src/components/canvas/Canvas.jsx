@@ -10,53 +10,67 @@ export default function Canvas() {
     const canvasRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
     const linesRef = useRef([]); 
+    const textBoxesRef = useRef([]); 
 
-    const {activeButton, widthSlider, lineStyle, lineColor} = useContext(CanvasContext)
+    const {activeButton, widthSlider, lineStyle, lineColor, handleTextBoxessLoad} = useContext(CanvasContext)
     const { activeTab } = useContext(TabsContext)
+    const [, updateState] = useState();
+    const forceUpdate = useCallback(() => updateState({}), []);
     // se usa ref como estado en este caso, porque si se usase un estado el componenete se reejecutaria cada vez se mueve el rato dibujando y eso seria un consumo potente 
     // por demasiadas reejecuciones. Con el useRef se guarda ahi ya que el ref sobrevive los re-renders y no se pierde, y el useref no se reejecuta
     
     console.log('active tab en el canvas.jsx', activeTab)
+    
     const draw = useCallback((ctx, activeTab) => {
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.strokeStyle = '#000';
       ctx.lineCap = 'round';
-      linesRef.current.forEach(line => {
-        ctx.beginPath();
-        line.forEach((point, index) => {
-
-          // console.log('point.index canvaaaaaas',  point)
-          // console.log('activeTab.index  canvaaaaaas-/*-/*-/*-/*-/*-/*-/*-*//*--/-',  activeTab)
-
-          if(point.tabIndex == activeTab.index){
-            // console.log('point.index canvaaaaaas-------dentro del if')
-          
-          if (index === 0) {
-            ctx.moveTo(point.x, point.y);
-          } else {
-            ctx.lineWidth = point.width;
-            ctx.fillStyle = point.lineColor 
-            ctx.strokeStyle = point.lineColor 
+      
+      
+        linesRef.current.forEach(line => {
+          ctx.beginPath();
+          line.forEach((point, index) => {
+  
+            if(point.tabIndex == activeTab.index){
             
-            if(point.lineStyle === 'Solid'){
-              ctx.setLineDash([]);
-            }else if(point.lineStyle === 'Dashed'){
-
-              ctx.setLineDash([1, 15]);
-            }else if(point.lineStyle === 'Dotted'){
-
-              ctx.setLineDash([point.width, point.width+10]);
+            if (index === 0) {
+              ctx.moveTo(point.x, point.y);
+            } else {
+              ctx.lineWidth = point.width;
+              ctx.fillStyle = point.lineColor 
+              ctx.strokeStyle = point.lineColor 
+              
+              if(point.lineStyle === 'Solid'){
+                ctx.setLineDash([]);
+              }else if(point.lineStyle === 'Dashed'){
+  
+                ctx.setLineDash([1, 15]);
+              }else if(point.lineStyle === 'Dotted'){
+  
+                ctx.setLineDash([point.width, point.width+10]);
+              }
+              ctx.lineTo(point.x, point.y);
             }
-            ctx.lineTo(point.x, point.y);
           }
-        }
+          });
+          ///-------------------
+
+          ctx.stroke();
         });
-        ctx.stroke();
+      
+
+      console.log('-------textBoxesRef antes del forEach de ------------',  textBoxesRef.current)
+      textBoxesRef.current.forEach(textBox => {
+         console.log('textbox--------------------------------------------',  textBox)
       });
+      //-------
+
+  
     }, []);
   
     useEffect(() => {
       const canvas = canvasRef.current;
+
       const ctx = canvas.getContext('2d');
       console.log('useeffect')
       draw(ctx, activeTab);
@@ -67,6 +81,7 @@ export default function Canvas() {
       const { offsetX, offsetY } = e.nativeEvent;
       console.log('e.nativeEvent', e.nativeEvent)
       linesRef.current.push([{ x: offsetX, y: offsetY, width: widthSlider, lineStyle: lineStyle, lineColor: lineColor , tabIndex: activeTab.index }]);
+      // textBoxesRef.current.push([{bottom:  height: left: right: top: width: x: y: , tabIndex: activeTab.index }]);
     };
   
     const stopDrawing = () => {
@@ -88,11 +103,30 @@ export default function Canvas() {
 
     const setTextArea = (e) => {
       // if (!isDrawing) return;
-  
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d');
       const { offsetX, offsetY } = e.nativeEvent;
       console.log('offsetX', offsetX)
       console.log('offsetY', offsetY)
+      
+      textBoxesRef.current = [
+
+        ...textBoxesRef.current,
+        {
+          id: Date.now(),
+          x: offsetX,
+          y: offsetY,
+          text: "",
+          tabIndex: activeTab.index
+        }
+      ]
+      forceUpdate();
+      
+      console.log('textBoxesRef.current*********', textBoxesRef.current)
+      // draw(ctx, activeTab);
+      
     };
+  //  const handleTextChange = (e) => {textboxes.map((textbox) => textbox.id === id ? { ...textbox, text: newText } : textbox) }
   
 
 
@@ -100,7 +134,7 @@ return (
 
     
         <div className="App">
-          { activeButton ? <p>{activeButton}</p> : null}
+          {/* { activeButton ? <p>{activeButton}</p> : null}   */}
           {/* <p> widthSlider: {widthSlider}</p> */}
             <canvas
                 ref={canvasRef}
@@ -111,7 +145,21 @@ return (
                 onMouseMove={drawLine}
                 onMouseLeave={stopDrawing}
                 style={{ border: '1px solid black' }}
-            />
+            >
+            </canvas>      
+                     
+        { textBoxesRef.current.map((textbox) => (
+        <textarea
+          key={textbox.id}
+          style={{
+            position: "absolute",
+            left: `${textbox.x}px`,
+            top: `${textbox.y}px`,
+          }}
+          value={textbox.text}
+          onChange={(e) => handleTextChange(textbox.id, e.target.value)}
+        />
+      ))}
         </div>
         
 )
