@@ -137,7 +137,7 @@ export default function CanvasContextProvider({children}) {
     }
 
     
-    function setTabs(tabs) {
+    function setLines(tabs) {
         canvasDispatch({
             type: 'SET_TABS',
             payload: tabs
@@ -192,7 +192,7 @@ export default function CanvasContextProvider({children}) {
         handleSelectStyleValue: handleSelectStyleValue,
         handleColorPickerValue: handleColorPickerValue,
         handleTextBoxessLoad: handleTextBoxessLoad,
-        setTabs: setTabs,
+        setLines: setLines,
         setTextBoxes: setTextBoxes,
         tabs: canvasState.tabs,
         loadLines: loadLines, 

@@ -44,11 +44,14 @@ const {handleButton, handleSliderValue, widthSlider, handleSelectStyleValue, han
         console.log('tabs---onSaveHandler function!!!!!______________', tabs)
         localStorage.setItem('tabs', JSON.stringify(tabs));
         localStorage.setItem('textBoxes', JSON.stringify(textBoxes));
+        localStorage.setItem('tabstabs', JSON.stringify(textBoxes));
         // setTabs()
     }
     function onLoadHandler() {
-
-            }
+        console.log('load')
+        let storedLines = JSON.parse(localStorage.getItem('tabs'));
+        loadLines(storedLines)
+    }
     
 
     return(

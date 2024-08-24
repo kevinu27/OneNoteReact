@@ -14,11 +14,12 @@ export default function Tabs() {
         //     console.log('no tabs')let variable = otraVariable ?? valorPorDefecto
 
         let storedLines = JSON.parse(localStorage.getItem('tabs'));
+        console.log('............tabs-------!!!!!!!!!!!!!!!!', tabs)
 
         // let storedTextBoxes = JSON.parse(localStorage.getItem('textBoxes'));
         console.log('tabs en el useffect-------------------------------------------------------')
 
-            // handleTabsLoad(...storedLines)
+            handleTabsLoad(storedLines)
             // updateState()
         // }
       }, []);

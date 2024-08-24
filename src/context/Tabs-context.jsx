@@ -44,12 +44,7 @@ function tabsReducer(state, action){
             )
         };
    
-     
     }
-    // return {
-    //     ...state,
-    //     activeTab: action.payload ,
-    // }
 
 }
 
