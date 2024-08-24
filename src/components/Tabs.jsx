@@ -13,7 +13,7 @@ export default function Tabs() {
         // if(tabs.length < 1){
         //     console.log('no tabs')
 
-            handleTabsLoad({name: 'useffectLoadedTab', index: 0, color:'#fff'})
+            handleTabsLoad({name: '', index: 0, color:'#fff'})
         // }
       }, []);
 
@@ -37,6 +37,11 @@ export default function Tabs() {
         const updatedTab = { ...tab, name: e.target.value, index };  // create a new object with updated name
         handleTabNameChange(updatedTab);
     }
+    function onTabClicCreateNewTabkHandler() {
+            console.log('add tab')
+            handleTabsLoad({name: `new tab ${ tabs.length}`, index: parseInt(tabs.length), color:'#fff'})
+            // tabs.push({name: `new tab ${ tabs.length}`, index: parseInt(tabs.length), color:'#fff'})
+    }
 
 
     return(
@@ -46,7 +51,13 @@ export default function Tabs() {
                 {activeTab.name}
             </p> */}
             {/* {activeTab.name} */}
-            <div className='tabs-row'>  { tabs.length > 0 ? tabs.map( (tab, index) =><> <input type="text" className={`tab ${activeTab.name == tab.name ? 'active-tab' : ''}`} onClick={()=> onTabClickHandler(tab, index )} onChange={(e)=> onNameChangeHandler(e, tab, index)}  key={index} value={tab.name}></input> </>)  : null} </div>
+
+        <div className='tabs-row'>
+
+            <div className='tabs-row'>  { tabs.length > 0 ? tabs.map( (tab, index) =><> <input type="text" className={`tab ${activeTab.index == tab.index ? 'active-tab' : ''}`} onClick={()=> onTabClickHandler(tab, index )} onChange={(e)=> onNameChangeHandler(e, tab, index)}  key={index} value={tab.name}></input> </>)  : null} </div>
+            <button onClick={()=> onTabClicCreateNewTabkHandler()}>+</button>
+        </div>
+
         {/* <div>
            {
             tabs.map( tab => 

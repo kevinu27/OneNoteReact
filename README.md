@@ -1,5 +1,5 @@
 # React + Vite
 falta:
 - el borrar lineas
-- el poner textos
-- el guardar
+- que seleccione las tabs por id no por nombre
+
