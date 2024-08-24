@@ -126,7 +126,12 @@ export default function Canvas() {
       // draw(ctx, activeTab);
       
     };
-  //  const handleTextChange = (e) => {textboxes.map((textbox) => textbox.id === id ? { ...textbox, text: newText } : textbox) }
+    const handleTextChange = (id, newText) => {
+      textBoxesRef.current = textBoxesRef.current.map((textbox) => 
+        textbox.id === id ? { ...textbox, text: newText } : textbox
+      );
+      forceUpdate();
+    };
   
 
 
@@ -148,7 +153,7 @@ return (
             >
             </canvas>      
                      
-            {textBoxesRef.current.map((textbox) => 
+    {textBoxesRef.current.map((textbox) => 
       textbox.tabIndex === activeTab.index ? (
         <textarea
           key={textbox.id}

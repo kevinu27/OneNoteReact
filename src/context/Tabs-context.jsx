@@ -81,7 +81,8 @@ export default function TabsContextProvider({children}) {
 const [tabsState, tabsDispatch] = useReducer(tabsReducer, {
 
     activeTab: {},
-    tabs: [{name:'+', index: 0, color:'#fff'}]
+    // tabs: [{name:'+', index: 0, color:'#fff'}]
+    tabs: []
     
 })
 
