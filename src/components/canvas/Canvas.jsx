@@ -85,6 +85,14 @@ export default function Canvas() {
       const ctx = canvas.getContext('2d');
       draw(ctx, activeTab);
     };
+
+    const setTextArea = (e) => {
+      // if (!isDrawing) return;
+  
+      const { offsetX, offsetY } = e.nativeEvent;
+      console.log('offsetX', offsetX)
+      console.log('offsetY', offsetY)
+    };
   
 
 
@@ -98,7 +106,7 @@ return (
                 ref={canvasRef}
                 width={window.innerWidth}
                 height={800}
-                onMouseDown={activeButton ? startDrawing : null}
+                onMouseDown={activeButton ? startDrawing : setTextArea}
                 onMouseUp={stopDrawing}
                 onMouseMove={drawLine}
                 onMouseLeave={stopDrawing}

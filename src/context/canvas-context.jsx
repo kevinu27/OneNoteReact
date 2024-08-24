@@ -6,7 +6,7 @@ function canvasReducer(state, action) {
     console.log('canvas reducer')
     console.log('statecanvasReducer', state)
     console.log('actioncanvasReducer-!_!_!_!_!_!!_!_!_!_', action)
-    console.log('actioncanvasReducer-!_!_!_!_!_!!_!_!_!_', action.payload.button.buttonId)
+    // console.log('actioncanvasReducer-!_!_!_!_!_!!_!_!_!_', action.payload.button.buttonId)
 
     if(action.type == "ACTIVE_BUTTON" && action.payload.button.buttonId == 'drawing'){
         console.log('ACTIVE_BUTTON - DRAWING')
