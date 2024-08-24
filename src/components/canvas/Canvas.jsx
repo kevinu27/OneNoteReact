@@ -148,7 +148,8 @@ return (
             >
             </canvas>      
                      
-        { textBoxesRef.current.map((textbox) => (
+            {textBoxesRef.current.map((textbox) => 
+      textbox.tabIndex === activeTab.index ? (
         <textarea
           key={textbox.id}
           style={{
@@ -159,7 +160,8 @@ return (
           value={textbox.text}
           onChange={(e) => handleTextChange(textbox.id, e.target.value)}
         />
-      ))}
+      ) : null
+    )}
         </div>
         
 )
