@@ -78,6 +78,23 @@ function canvasReducer(state, action) {
             textBoxes: action.payload
         }
     }
+    /////////
+    if(action.type == "LOAD_LINES"){
+        console.log('LOAD_LINES')
+        console.log('LOAD_LINES', action.payload)
+        return {
+            ...state,
+            tabs: action.payload
+        }
+    }
+    if(action.type == "LOAD_TEXT_BOXES"){
+        console.log('LOAD_TEXT_BOXES')
+        console.log('SLOAD_TEXT_BOXES', action.payload)
+        return {
+            ...state,
+            textBoxes: action.payload
+        }
+    }
 
 }
 
@@ -134,6 +151,22 @@ export default function CanvasContextProvider({children}) {
             payload: textBoxes
         })
     }
+
+    function loadLines(lines) {
+        console.log('loadLines..................', lines)
+        canvasDispatch({
+            type: 'LOAD_LINES',
+            payload: lines
+        })
+    }
+
+    function loadTextBoxes(textBoxes) {
+        console.log('setTextBoxes..................', textBoxes)
+        canvasDispatch({
+            type: 'LOAD_TEXT_BOXES',
+            payload: textBoxes
+        })
+    }
    
     const [canvasState, canvasDispatch] = useReducer(canvasReducer,
         {
@@ -161,7 +194,9 @@ export default function CanvasContextProvider({children}) {
         handleTextBoxessLoad: handleTextBoxessLoad,
         setTabs: setTabs,
         setTextBoxes: setTextBoxes,
-        tabs: canvasState.tabs
+        tabs: canvasState.tabs,
+        loadLines: loadLines, 
+        loadTextBoxes: loadTextBoxes
     }
 
     return (<CanvasContext.Provider value={canvasContextValues} >

@@ -23,11 +23,6 @@ const {handleButton, handleSliderValue, widthSlider, handleSelectStyleValue, han
         console.log('click, e', e)
         console.log('click, index', index)
         console.log('click, button', button)
-        if(button.buttonId = 'save'){
-            // aqui pongo que guarde o en local o en el Storage
-            handleButton(!activeButton, index, button)
-
-        }
         if(button.buttonId = 'drawing'){
             handleButton(!activeButton, index, button)
         }
@@ -39,20 +34,21 @@ const {handleButton, handleSliderValue, widthSlider, handleSelectStyleValue, han
       }
 
     function onSelectStrokeStyleHandler(e, index, button) {
-        console.log('slect', e)
         handleSelectStyleValue(e.target.value);
     }
 
     function onColorPickerHandler(color) {
-
         handleColorPickerValue(color);
     }
     function onSaveHandler() {
-console.log('tabs---save!!!!!______________', tabs)
-localStorage.setItem('tabs', JSON.stringify(tabs));
-localStorage.setItem('textBoxes', JSON.stringify(textBoxes));
+        console.log('tabs---onSaveHandler function!!!!!______________', tabs)
+        localStorage.setItem('tabs', JSON.stringify(tabs));
+        localStorage.setItem('textBoxes', JSON.stringify(textBoxes));
         // setTabs()
     }
+    function onLoadHandler() {
+
+            }
     
 
     return(
@@ -63,6 +59,7 @@ localStorage.setItem('textBoxes', JSON.stringify(textBoxes));
                 {ButtonsContent.map( (button, index) =>  button.buttonType == "slider" ?  <div key={index}> <label htmlFor={button.buttonId}>{button.buttonId}: {widthSlider} </label> <input type="range" id={button.buttonId} min={button.min} max={button.max} defaultValue={button.defaultValue} onChange={(e) => onSliderHandler(e, index, button)} /> </div> : null )}
                 {ButtonsContent.map( (button, index) =>  button.buttonType == "color" ?  <div key={index}> <label htmlFor={button.buttonId}>{button.buttonId} </label> <input type="color" id={button.buttonId}  value={lineColor} onChange={(e) => onColorPickerHandler(e, index, button)} /> </div> : null )}
                 <button onClick={(e)=> onSaveHandler()}>  SAVE</button>
+                <button onClick={(e)=> onLoadHandler()}>  LOAD</button>
             </div>
         </>
     )

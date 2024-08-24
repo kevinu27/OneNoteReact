@@ -1,4 +1,4 @@
-import React, {useContext, useEffect } from 'react';
+import React, {useContext, useEffect, useState } from 'react';
 import { TabsContext } from '../context/Tabs-context.jsx'
 import './Tabs.css'
 
@@ -7,13 +7,19 @@ import './Tabs.css'
 export default function Tabs() {
 
     const { activeTab, handleTabSelection , tabs, handleTabsLoad, handleTabNameChange } = useContext(TabsContext)
-    
+    const [, updateState] = useState();
     useEffect(() => {
         // console.log('tabs en el useffect', tabs)
         // if(tabs.length < 1){
-        //     console.log('no tabs')
+        //     console.log('no tabs')let variable = otraVariable ?? valorPorDefecto
 
-            handleTabsLoad({name: '', index: 0, color:'#fff'})
+        let storedLines = JSON.parse(localStorage.getItem('tabs'));
+
+        // let storedTextBoxes = JSON.parse(localStorage.getItem('textBoxes'));
+        console.log('tabs en el useffect-------------------------------------------------------')
+
+            // handleTabsLoad(...storedLines)
+            // updateState()
         // }
       }, []);
 
@@ -54,7 +60,7 @@ export default function Tabs() {
 
         <div className='tabs-row'>
 
-            <div className='tabs-row'>  { tabs.length > 0 ? tabs.map( (tab, index) =><> <input type="text" className={`tab ${activeTab.index == tab.index ? 'active-tab' : ''}`} onClick={()=> onTabClickHandler(tab, index )} onChange={(e)=> onNameChangeHandler(e, tab, index)}  key={index} value={tab.name}></input> </>)  : null} </div>
+            <div className='tabs-row'>  { tabs.length > 0 ? tabs.map( (tab, index) =><> <input  key={index}  type="text" className={`tab ${activeTab.index == tab.index ? 'active-tab' : ''}`} onClick={()=> onTabClickHandler(tab, index )} onChange={(e)=> onNameChangeHandler(e, tab, index)}  value={tab.name}></input> </>)  : null} </div>
             <button onClick={()=> onTabClicCreateNewTabkHandler()}>+</button>
         </div>
 

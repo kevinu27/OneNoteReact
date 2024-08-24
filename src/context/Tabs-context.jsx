@@ -63,7 +63,7 @@ export default function TabsContextProvider({children}) {
     }
 
     function handleTabsLoad(tabs) {
-        // console.log('tab en handleTabsLoad', tabs)
+        console.log('tab en handleTabsLoad', tabs)
         tabsDispatch({
             type: 'LOAD_TABS',
             payload: tabs

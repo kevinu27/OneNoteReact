@@ -10,7 +10,7 @@ export default function Canvas() {
     const linesRef = useRef([]); 
     const textBoxesRef = useRef([]); 
 
-    const {activeButton, widthSlider, lineStyle, lineColor, setTextBoxes, setTabs} = useContext(CanvasContext)
+    const {activeButton, widthSlider, lineStyle, lineColor, setTextBoxes, setTabs, loadLines, loadTextBoxes} = useContext(CanvasContext)
     const { activeTab } = useContext(TabsContext)
     const [, updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);
@@ -56,11 +56,6 @@ export default function Canvas() {
           ctx.stroke();
         });
       
-
-      console.log('-------textBoxesRef antes del forEach de ------------',  textBoxesRef.current)
-      textBoxesRef.current.forEach(textBox => {
-         console.log('textbox--------------------------------------------',  textBox)
-      });
       //-------
 
   
@@ -71,6 +66,15 @@ export default function Canvas() {
 
       const ctx = canvas.getContext('2d');
       console.log('useeffect')
+
+      ////poner aqui el load del 
+      let storedLines = JSON.parse(localStorage.getItem('tabs'));
+      let storedTextBoxes = JSON.parse(localStorage.getItem('textBoxes'));
+      console.log('storedLines***************', storedLines)
+      console.log('storedTextBoxes************', storedTextBoxes)
+      loadLines()
+      loadTextBoxes()
+
       draw(ctx, activeTab);
     }, [draw, activeTab ]);
   
